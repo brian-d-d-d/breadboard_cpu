@@ -20,7 +20,7 @@ void serial_receive() {
             }
 
             command[index] = '\0';
-            handle_command(command, index + 1);
+            handle_command(command);
         }
     }
 }
@@ -29,22 +29,22 @@ void serial_transmit(uint8_t value) {
     Serial.write(value);
 }
 
-void handle_command(char command[], int len) {
+void handle_command(char command[]) {
     switch (command[0]) {
         //Get command
         case 'g':
-            handle_get_command(command, len);
+            handle_get_command(command);
             break;
         //Set command
         case 's':
-            handle_set_command(command, len);
+            handle_set_command(command);
             break;
         default:
             break;
     }
 }
 
-void handle_get_command(char command[], int len) {
+void handle_get_command(char command[]) {
     int bus_num = command[2] - '0';
 
     serial_transmit(bus_get_byte_value(BUSES[bus_num], BUS_LENS[bus_num]));
@@ -54,7 +54,7 @@ void handle_get_command(char command[], int len) {
 //Example for binary: s 1 0b111000
 //Example for hex: s 1 0xFFDD
 //Example for decimal: s 1 0d12
-void handle_set_command(char command[], int len) {
+void handle_set_command(char command[]) {
     int bus_num = command[2] - '0';
     uint8_t value;
 
