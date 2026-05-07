@@ -2,20 +2,20 @@
 
 #include <Arduino.h>
 
-// Set all pins in the bus to mode
-void set_bus_mode(char mode, const int bus[], int bus_len = DEFAULT_BUS_LEN) {
+// Set all pins in the bus to mode. Mode should be INPUT or OUTPUT
+void bus_set_mode(char mode, const int bus[], int bus_len) {
     for (int i = 0; i < bus_len; i++) {
         pinMode(bus[i], mode);
     }
 }
 
-// Set a specific pin at index in a bus to mode
-void set_bus_pin_mode(char mode, const int bus[], int index) {
+// Set a specific pin at index in a bus to mode. Mode should be INPUT or OUTPUT
+void bus_set_pin_mode(char mode, const int bus[], int index) {
     pinMode(bus[index], mode);
 }
 
 //Sets the first 8 pins in a bus to value
-void set_bus_byte_value(uint8_t value, const int bus[], int bus_len = DEFAULT_BUS_LEN) {
+void bus_set_byte_value(uint8_t value, const int bus[], int bus_len) {
     if (bus_len > 8) {
         bus_len = 8;
     }
@@ -29,12 +29,12 @@ void set_bus_byte_value(uint8_t value, const int bus[], int bus_len = DEFAULT_BU
 }
 
 //Sets a specific pin at index in a bus to value. Value should be LOW (0) or HIGH (1)
-void set_bus_bit_value(uint8_t value, const int bus[], int index) {
+void bus_set_bit_value(uint8_t value, const int bus[], int index) {
     digitalWrite(bus[index], value);
 }
 
 //Gets the first 8 pins in a bus
-uint8_t get_bus_byte_value(const int bus[], int bus_len = DEFAULT_BUS_LEN) {
+uint8_t bus_get_byte_value(const int bus[], int bus_len) {
     if (bus_len > 8) {
         bus_len = 8;
     }
@@ -50,6 +50,6 @@ uint8_t get_bus_byte_value(const int bus[], int bus_len = DEFAULT_BUS_LEN) {
 }
 
 //Gets the bit at a specific pin on the bus
-uint8_t get_bus_bit_value(const int bus[], int index) {
+uint8_t bus_get_bit_value(const int bus[], int index) {
     return digitalRead(bus[index]);
 }
