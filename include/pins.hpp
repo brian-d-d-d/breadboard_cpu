@@ -13,6 +13,9 @@ const int BUS_3[] = {2, 3, 4, 5, 6, 7, 8, 9};
 #define BUS_2_LEN sizeof(BUS_2) / sizeof(int)
 #define BUS_3_LEN sizeof(BUS_3) / sizeof(int)
 
+const int* BUSES[] = {BUS_1, BUS_2, BUS_3};
+const int BUS_LENS[] = {BUS_1_LEN, BUS_2_LEN, BUS_3_LEN};
+
 void bus_set_mode(char mode, const int bus[], int bus_len = DEFAULT_BUS_LEN);
 
 void bus_set_pin_mode(char mode, const int bus[], int index);
