@@ -1,0 +1,35 @@
+from defines import ARDUINO_PORT, ARDUINO_BAUD_RATE, COMMAND_DELIMITER
+
+import time
+import pytest
+import serial
+
+CLOCK_SPEED = 0.01
+
+@pytest.fixture()
+def serial_port() -> serial.Serial:
+    ser = serial.Serial(ARDUINO_PORT, ARDUINO_BAUD_RATE)
+    time.sleep(1)
+
+    return ser
+
+@pytest.mark.skip()
+def test_commands(serial_port, commands):
+    index = 0
+
+    for command in commands:
+        if isinstance(command, tuple):
+            serial_port.write((command[0] + COMMAND_DELIMITER).encode())       
+            try:
+                value = int.from_bytes(serial_port.read(1))
+                assert(value == command[1])
+            except AssertionError:
+                raise AssertionError("\n" f"Failed command: {command[0]}, index: {index}"
+                                     "\n" f"{value} != {command[1]}"
+                                     "\n" f"{format(value, "#010b")} != {format(command[1], "#010b")}"
+                                     "\n" f"{format(value, "#04x")} != {format(command[1], "#04x")}")
+        else:
+            serial_port.write((command + COMMAND_DELIMITER).encode())
+
+        index += 1
+        time.sleep(CLOCK_SPEED)

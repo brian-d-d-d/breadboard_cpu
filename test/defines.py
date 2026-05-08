@@ -1,0 +1,3 @@
+ARDUINO_PORT = "/dev/cu.usbmodem101"
+ARDUINO_BAUD_RATE = 9600
+COMMAND_DELIMITER = '\n'
