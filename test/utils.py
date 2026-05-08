@@ -1,10 +1,11 @@
-from defines import ARDUINO_PORT, ARDUINO_BAUD_RATE, COMMAND_DELIMITER
+from defines import (ARDUINO_PORT, 
+                     ARDUINO_BAUD_RATE, 
+                     COMMAND_DELIMITER, 
+                     CLOCK_SPEED)
 
 import time
 import pytest
 import serial
-
-CLOCK_SPEED = 0.01
 
 @pytest.fixture()
 def serial_port() -> serial.Serial:
