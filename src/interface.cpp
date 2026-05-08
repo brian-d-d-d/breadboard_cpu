@@ -8,21 +8,13 @@
 void serial_receive() {
     while (1) {
         if (Serial.available() > 0) {
-            char* command = (char*) malloc((Serial.available() + 1) * sizeof(char));
-            int index = 0;
-            
-            //Need to add logic for checking the end of the command has been seen
-            //seomthig like while the end character hasnt been seen then the loop should wait
-            while (Serial.available() > 0) {
-                command[index] = Serial.read();
-                index++;
-            }
+            char command[READ_BUFFER_SIZE];
+        
+            uint8_t bytes_read = Serial.readBytesUntil(COMMAND_DELIMITER, command, READ_BUFFER_SIZE);
+            command[bytes_read] = '\0';
 
-            command[index] = '\0';
             handle_command(command);
         }
-
-        delay(100);
     }
 }
 

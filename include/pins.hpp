@@ -3,11 +3,11 @@
 
 #include <stdint.h>
 
-#define DEFAULT_BUS_LEN 8
-
 constexpr const int BUS_0[] = {39, 41, 43, 45, 47, 49, 51, 53};
 constexpr const int BUS_1[] = {23, 25, 27, 29, 31, 33, 35, 37};
 constexpr const int BUS_2[] = {2, 3, 4, 5, 6, 7, 8, 9};
+
+#define DEFAULT_BUS_LEN 8
 
 #define BUS_0_LEN sizeof(BUS_0) / sizeof(int)
 #define BUS_1_LEN sizeof(BUS_1) / sizeof(int)

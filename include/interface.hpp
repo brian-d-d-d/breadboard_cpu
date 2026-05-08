@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+#define READ_BUFFER_SIZE 20
+#define COMMAND_DELIMITER '\n'
+
 void serial_receive();
 
 void serial_transmit(uint8_t value);
