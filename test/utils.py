@@ -26,9 +26,9 @@ def test_commands(serial_port, commands):
                 assert(value == command[1])
             except AssertionError:
                 raise AssertionError("\n" f"Failed command: {command[0]}, index: {index}"
-                                     "\n" f"{value} != {command[1]}"
-                                     "\n" f"{format(value, "#010b")} != {format(command[1], "#010b")}"
-                                     "\n" f"{format(value, "#04x")} != {format(command[1], "#04x")}")
+                                     "\n" f"Read {value} != {command[1]} Expected"
+                                     "\n" f"Read {format(value, "#010b")} != {format(command[1], "#010b")} Expected"
+                                     "\n" f"Read {format(value, "#04x")} != {format(command[1], "#04x")} Expected")
         else:
             serial_port.write((command + COMMAND_DELIMITER).encode())
 
