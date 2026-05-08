@@ -61,7 +61,7 @@ void handle_get_command(char command[]) {
 
 //Set command is in the format s <bus_num> <base><value>
 //Example for binary: s 0 0b111000
-//Example for hex: s 0 0xFFDD
+//Example for hex: s 0 0xFF
 //Example for decimal: s 0 0d12
 void handle_set_command(char command[]) {
     int bus_num = command[2] - '0';
@@ -71,7 +71,7 @@ void handle_set_command(char command[]) {
     if (memcmp(command + 4, "0b", 2) == 0) {
         value = strtol(command + 6, NULL, 2);
     }
-    //Hex (0xFFDD)
+    //Hex (0xFF)
     else if (memcmp(command + 4, "0x", 2) == 0) {
         value = strtol(command + 6, NULL, 16);
     }
