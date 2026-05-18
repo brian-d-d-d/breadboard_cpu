@@ -1,4 +1,4 @@
-from utils import test_commands, serial_port
+from utils import run_commands, get_serial_port
 
 import pytest
 import random
@@ -10,8 +10,10 @@ BUS_CONTROL = 3
 BUS_REGISTER_1_8_CLOCK_INDEX = 0 # (22)
 BUS_DATA_OE_INDEX = 1 # (24)
 
+serial_port = get_serial_port()
+
 @pytest.fixture
-def setup_control_bus(serial_port):
+def setup_control_bus():
     commands = (
         # Set the control bus to output
         f"m {BUS_CONTROL} {OUTPUT}",
@@ -20,11 +22,11 @@ def setup_control_bus(serial_port):
         f"s {BUS_CONTROL} 0b00000011",
     )
 
-    test_commands(serial_port, commands)
+    run_commands(serial_port, commands)
 
 
-@pytest.mark.repeat(10)
-def test_simple_rw(serial_port, setup_control_bus):
+@pytest.mark.repeat(30)
+def test_simple_rw(setup_control_bus):
     random_data_1_8 = random.randint(0, 255)
 
     commands = (   
@@ -42,6 +44,7 @@ def test_simple_rw(serial_port, setup_control_bus):
 
         # Set the data bus to something random before reading so we know for sure it works
         f"s {BUS_DATA_1_8} 0xAB",
+        (f"g {BUS_DATA_1_8}", 0xAB),
         
         # Set the bus to input
         f"m {BUS_DATA_1_8} {INPUT}",
@@ -56,4 +59,4 @@ def test_simple_rw(serial_port, setup_control_bus):
     print()
     print(f"Data written: {format(random_data_1_8, "#04x")}, {format(random_data_1_8, "#010b")}")
 
-    test_commands(serial_port, commands)
+    run_commands(serial_port, commands)

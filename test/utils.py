@@ -7,15 +7,13 @@ import time
 import pytest
 import serial
 
-@pytest.fixture()
-def serial_port() -> serial.Serial:
+def get_serial_port() -> serial.Serial:
     ser = serial.Serial(ARDUINO_PORT, ARDUINO_BAUD_RATE)
     time.sleep(1)
 
     return ser
 
-@pytest.mark.skip()
-def test_commands(serial_port, commands):
+def run_commands(serial_port, commands):
     index = 0
 
     for command in commands:
