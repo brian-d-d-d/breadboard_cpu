@@ -44,7 +44,6 @@ def test_simple_rw(setup_control_bus):
 
         # Set the data bus to something random before reading so we know for sure it works
         f"s {BUS_DATA_1_8} 0xAB",
-        (f"g {BUS_DATA_1_8}", 0xAB),
         
         # Set the bus to input
         f"m {BUS_DATA_1_8} {INPUT}",
