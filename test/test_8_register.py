@@ -3,8 +3,7 @@ from utils import run_commands, get_serial_port
 import pytest
 import random
 from defines import INPUT, OUTPUT
-
-BUS_DATA_1_8 = 0
+BUS_DATA_1_8 = 2
 
 BUS_CONTROL = 3
 BUS_REGISTER_1_8_CLOCK_INDEX = 0 # (22)

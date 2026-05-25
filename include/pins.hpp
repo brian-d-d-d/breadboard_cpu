@@ -7,6 +7,7 @@ constexpr const int BUS_0[] = {39, 41, 43, 45, 47, 49, 51, 53};
 constexpr const int BUS_1[] = {23, 25, 27, 29, 31, 33, 35, 37};
 constexpr const int BUS_2[] = {2, 3, 4, 5, 6, 7, 8, 9};
 constexpr const int BUS_3[] = {22, 24, 26, 28, 30, 32, 34, 36};
+constexpr const int BUS_4[] = {38, 40, 42, 44, 46, 48, 50, 52};
 
 #define DEFAULT_BUS_LEN 8
 
@@ -14,9 +15,10 @@ constexpr const int BUS_3[] = {22, 24, 26, 28, 30, 32, 34, 36};
 #define BUS_1_LEN sizeof(BUS_1) / sizeof(int)
 #define BUS_2_LEN sizeof(BUS_2) / sizeof(int)
 #define BUS_3_LEN sizeof(BUS_3) / sizeof(int)
+#define BUS_4_LEN sizeof(BUS_4) / sizeof(int)
 
-constexpr const int* BUSES[] = {BUS_0, BUS_1, BUS_2, BUS_3};
-constexpr const int BUS_LENS[] = {BUS_0_LEN, BUS_1_LEN, BUS_2_LEN, BUS_3_LEN};
+constexpr const int* BUSES[] = {BUS_0, BUS_1, BUS_2, BUS_3, BUS_4};
+constexpr const int BUS_LENS[] = {BUS_0_LEN, BUS_1_LEN, BUS_2_LEN, BUS_3_LEN, BUS_4_LEN};
 
 void bus_set_mode(char mode, const int bus[], int bus_len = DEFAULT_BUS_LEN);
 
