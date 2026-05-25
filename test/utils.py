@@ -13,6 +13,12 @@ def get_serial_port() -> serial.Serial:
 
     return ser
 
+# Use this for getting the value on a bus
+def run_command(serial_port, command):
+    serial_port.write((command + COMMAND_DELIMITER).encode())
+
+    return int.from_bytes(serial_port.read(1))
+
 def run_commands(serial_port, commands):
     index = 0
 

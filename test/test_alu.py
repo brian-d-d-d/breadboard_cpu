@@ -1,4 +1,4 @@
-from utils import run_commands, get_serial_port
+from utils import run_commands, run_command, get_serial_port
 
 import pytest
 import random
@@ -100,7 +100,7 @@ def store_value_register(bus_num: int, register: str, value: int | None = None):
     return commands
         
 
-def get_value_bus(bus_num: int, register: str, expected_result: int):
+def get_value_bus(bus_num: int, register: str, expected_result: int | None = None):
     commands = [
         f"m {bus_num} {INPUT}",
     ]
@@ -114,7 +114,8 @@ def get_value_bus(bus_num: int, register: str, expected_result: int):
     elif register == "F":
         commands.append(f"s {BUS_REGISTER_CONTROL} 0b01111111")
 
-    commands.append((f"g {bus_num}", expected_result))
+    if expected_result is not None:
+        commands.append((f"g {bus_num}", expected_result))
 
     return commands
 
@@ -162,6 +163,10 @@ def test_simple_a_plus_b_a_nand_b():
     commands.extend(alu_output_arithmetic_result())
     commands.extend(store_value_register(BUS_DATA_C_1_8, "C"))
 
+    # Store then flag result
+    commands.extend(alu_output_flags_result())
+    commands.extend(store_value_register(BUS_DATA_C_1_8, "F"))
+
     # Check the c register equals a + b
     commands.extend(alu_disable_output())
     commands.extend(get_value_bus(BUS_DATA_C_1_8, "C", data_A_1_8 + data_B_1_8))
@@ -192,3 +197,71 @@ def test_simple_a_plus_b_a_nand_b():
                                         f"{format(data_nand_byte, "#010b")}")
     
     run_commands(serial_port, commands)
+
+@pytest.mark.repeat(1)
+def test_4_byte_unsigned_add():
+    # Range from 2^25 -> 2^31. This means both numbers will be 4 bytes
+    data_A_1_8 = random.randint(33554432, 2147483647)
+    data_B_1_8 = random.randint(33554432, 2147483647)
+    
+    bytes_A = [data_A_1_8 & 0xff,
+               (data_A_1_8 >> 8) & 0xff, 
+               (data_A_1_8 >> 16) & 0xff, 
+               (data_A_1_8 >> 24) & 0xff, 
+    ]
+    bytes_B = [data_B_1_8 & 0xff, 
+               (data_B_1_8 >> 8) & 0xff, 
+               (data_B_1_8 >> 16) & 0xff, 
+               (data_B_1_8 >> 24) & 0xff, 
+    ]
+
+    print()
+    print("A" + str([hex(x) for x in bytes_A]))
+    print("B" + str([hex(x) for x in bytes_B]))
+
+    bytes_C = []
+
+    commands = []
+    commands.extend(setup_control_bus())
+
+    run_commands(serial_port, commands)
+
+    for i in range(0, 4):
+        sub_commands = []
+
+        sub_commands.extend(store_value_register(BUS_DATA_A_1_8, "A", bytes_A[i]))
+        sub_commands.extend(store_value_register(BUS_DATA_B_1_8, "B", bytes_B[i]))
+
+        # Store the arithmetic result in c
+        sub_commands.extend(alu_output_arithmetic_result())
+        sub_commands.extend(store_value_register(BUS_DATA_C_1_8, "C"))
+
+        # Store the flags
+        sub_commands.extend(alu_output_flags_result())
+        sub_commands.extend(store_value_register(BUS_DATA_C_1_8, "F"))
+
+        # Run the above commands
+        run_commands(serial_port, sub_commands)
+
+        # Get the result
+        sub_commands = []
+        sub_commands.extend(alu_disable_output())
+        sub_commands.extend(get_value_bus(BUS_DATA_C_1_8, "C"))
+        run_commands(serial_port, sub_commands)
+
+        bytes_C.append(hex(run_command(serial_port, f"g {BUS_DATA_C_1_8}")))
+
+    print("Result in hex: " + str(bytes_C))
+
+    result_int = 0
+    result_int |= int(bytes_C[0], 16)
+    result_int |= int(bytes_C[1], 16) << 8
+    result_int |= int(bytes_C[2], 16) << 16
+    result_int |= int(bytes_C[3], 16) << 24
+
+    print("Result in decimal: " + str(result_int))
+    print("Result should be: " + str(data_A_1_8 + data_B_1_8))
+
+    # assert result_int == data_A_1_8 + data_B_1_8
+        
+    
