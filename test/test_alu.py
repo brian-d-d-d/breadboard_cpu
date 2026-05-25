@@ -148,7 +148,7 @@ def alu_disable_output():
     return commands
 
 @pytest.mark.repeat(30)
-def test_a_plus_b_equals_d():
+def test_simple_a_plus_b_a_nand_b():
     data_A_1_8 = random.randint(0, 127)
     data_B_1_8 = random.randint(0, 127)
 
@@ -158,16 +158,27 @@ def test_a_plus_b_equals_d():
     commands.extend(store_value_register(BUS_DATA_A_1_8, "A", data_A_1_8))
     commands.extend(store_value_register(BUS_DATA_B_1_8, "B", data_B_1_8))
 
+    # Store the arithmetic result in c
     commands.extend(alu_output_arithmetic_result())
     commands.extend(store_value_register(BUS_DATA_C_1_8, "C"))
-
-    commands.extend(alu_output_flags_result())
-    commands.extend(store_value_register(BUS_DATA_C_1_8, "F"))
 
     # Check the c register equals a + b
     commands.extend(alu_disable_output())
     commands.extend(get_value_bus(BUS_DATA_C_1_8, "C", data_A_1_8 + data_B_1_8))
-                   
+
+    # Store the logic result in c
+    commands.extend(alu_output_logic_result())
+    commands.extend(store_value_register(BUS_DATA_C_1_8, "C"))
+
+    data_A_1_8_byte = data_A_1_8.to_bytes()[0]
+    data_B_1_8_byte = data_B_1_8.to_bytes()[0]
+
+    data_nand_byte = (1 << 8) - 1 - (data_A_1_8_byte & data_B_1_8_byte)
+
+    # Check the c register equals nand a and b
+    commands.extend(alu_disable_output())
+    commands.extend(get_value_bus(BUS_DATA_C_1_8, "C", data_nand_byte))
+            
     print()
     print(f"Data written to register A: {format(data_A_1_8, "#04x")}, {format(data_A_1_8, "#010b")} {data_A_1_8}")
     print(f"Data written to register B: {format(data_B_1_8, "#04x")}, {format(data_B_1_8, "#010b")} {data_B_1_8}")
@@ -176,44 +187,8 @@ def test_a_plus_b_equals_d():
                                         f"{format(data_A_1_8 + data_B_1_8, "#010b")}, " +
                                         f"{data_A_1_8 + data_B_1_8}")
     
-    run_commands(serial_port, commands)
-
-
-# @pytest.mark.repeat(1)
-# def test_simple(setup_control_bus):
-#     data_A_1_8 = random.randint(0, 127)
-#     data_B_1_8 = random.randint(0, 127)
-
-#     commands = (   
-#         # Set the data bus to output
-#         f"m {BUS_DATA_A_1_8} {OUTPUT}",
-#         f"m {BUS_DATA_B_1_8} {OUTPUT}",
-        
-#         # Put data on the data bus
-#         f"s {BUS_DATA_A_1_8} {hex(data_A_1_8)}",
-#         f"s {BUS_DATA_B_1_8} {hex(data_B_1_8)}",
-
-#         # Clock the registers down 
-#         f"s {BUS_REGISTER_CONTROL} 0b11111010",
-
-#         # Clock the registers up to shift in data to the registers
-#         f"s {BUS_REGISTER_CONTROL} 0b11111111",
-#     )
-
-#     print()
-#     print(f"Data written to register A: {format(data_A_1_8, "#04x")}, {format(data_A_1_8, "#010b")} {data_A_1_8}")
-#     print(f"Data written to register B: {format(data_B_1_8, "#04x")}, {format(data_B_1_8, "#010b")} {data_B_1_8}")
-
-#     print(f"Expected arithmetic result: {format(data_A_1_8 + data_B_1_8, "#04x")}, " +
-#                                         f"{format(data_A_1_8 + data_B_1_8, "#010b")}, " +
-#                                         f"{data_A_1_8 + data_B_1_8}")
     
-#     data_A_1_8_byte = data_A_1_8.to_bytes()[0]
-#     data_B_1_8_byte = data_B_1_8.to_bytes()[0]
-
-#     data_nand_byte = (1 << 8) - 1 - (data_A_1_8_byte & data_B_1_8_byte)
-
-#     print(f"Expected logic result     : {format(data_nand_byte, "#04x")}, " +
-#                                         f"{format(data_nand_byte, "#010b")}")
-
-#     run_commands(serial_port, commands)
+    print(f"Expected logic result     : {format(data_nand_byte, "#04x")}, " +
+                                        f"{format(data_nand_byte, "#010b")}")
+    
+    run_commands(serial_port, commands)
