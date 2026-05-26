@@ -607,7 +607,26 @@
       "sort_asc": true,
       "sort_field": "Reference"
     },
-    "bus_aliases": {},
+    "bus_aliases": {
+      "DATA_BUS_1_16": [
+        "DB_1",
+        "DB_2",
+        "DB_3",
+        "DB_4",
+        "DB_5",
+        "DB_6",
+        "DB_7",
+        "DB_8",
+        "DB_9",
+        "DB_10",
+        "DB_11",
+        "DB_12",
+        "DB_13",
+        "DB_14",
+        "DB_15",
+        "DB_16"
+      ]
+    },
     "connection_grid_size": 50.0,
     "drawing": {
       "dashed_lines_dash_length_ratio": 12.0,
@@ -656,7 +675,7 @@
         "uuid": "3dc633a2-e440-4ce6-bdff-6db6cd63c61f"
       }
     ],
-    "used_designators": "",
+    "used_designators": "#PWR7-13",
     "variants": []
   },
   "sheets": [
