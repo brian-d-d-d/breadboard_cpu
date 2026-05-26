@@ -198,12 +198,12 @@ def test_simple_a_plus_b_a_nand_b():
     
     run_commands(serial_port, commands)
 
-@pytest.mark.repeat(1)
+@pytest.mark.repeat(30)
 def test_4_byte_unsigned_add():
     # Range from 2^25 -> 2^31. This means both numbers will be 4 bytes
     data_A_1_8 = random.randint(33554432, 2147483647)
     data_B_1_8 = random.randint(33554432, 2147483647)
-    
+
     bytes_A = [data_A_1_8 & 0xff,
                (data_A_1_8 >> 8) & 0xff, 
                (data_A_1_8 >> 16) & 0xff, 
@@ -260,8 +260,8 @@ def test_4_byte_unsigned_add():
     result_int |= int(bytes_C[3], 16) << 24
 
     print("Result in decimal: " + str(result_int))
-    print("Result should be: " + str(data_A_1_8 + data_B_1_8))
+    print("Result should be:  " + str(data_A_1_8 + data_B_1_8))
 
-    # assert result_int == data_A_1_8 + data_B_1_8
+    assert result_int == data_A_1_8 + data_B_1_8
         
     
