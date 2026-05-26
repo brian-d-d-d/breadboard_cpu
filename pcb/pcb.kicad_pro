@@ -625,6 +625,26 @@
         "DB_14",
         "DB_15",
         "DB_16"
+      ],
+      "DATA_BUS_1_8": [
+        "DB_1",
+        "DB_2",
+        "DB_3",
+        "DB_4",
+        "DB_5",
+        "DB_6",
+        "DB_7",
+        "DB_8"
+      ],
+      "DATA_BUS_9_16": [
+        "DB_9",
+        "DB_10",
+        "DB_11",
+        "DB_12",
+        "DB_13",
+        "DB_14",
+        "DB_15",
+        "DB_16"
       ]
     },
     "connection_grid_size": 50.0,
@@ -675,7 +695,7 @@
         "uuid": "3dc633a2-e440-4ce6-bdff-6db6cd63c61f"
       }
     ],
-    "used_designators": "#PWR7-13",
+    "used_designators": "A_REG_TXRX_1_8,U1-2,A_1-16,A_REG_9_17-18,A_REG_BUS_9_17-18,A_REG_BUS_1_9,A_REG_1_8-9,D1-8,#PWR3-4,#PWR6-8,#PWR11,#PWR13-32",
     "variants": []
   },
   "sheets": [
