@@ -621,6 +621,24 @@
       "sort_field": "Reference"
     },
     "bus_aliases": {
+      "ARITH_1_16": [
+        "AR_1",
+        "AR_2",
+        "AR_3",
+        "AR_4",
+        "AR_5",
+        "AR_6",
+        "AR_7",
+        "AR_8",
+        "AR_9",
+        "AR_10",
+        "AR_11",
+        "AR_12",
+        "AR_13",
+        "AR_14",
+        "AR_15",
+        "AR_16"
+      ],
       "A_1_8": [
         "A_1",
         "A_2",
@@ -698,6 +716,24 @@
         "DB_14",
         "DB_15",
         "DB_16"
+      ],
+      "NAND_1_16": [
+        "NND_1",
+        "NND_2",
+        "NND_3",
+        "NND_4",
+        "NND_5",
+        "NND_6",
+        "NND_7",
+        "NND_8",
+        "NND_9",
+        "NND_10",
+        "NND_11",
+        "NND_12",
+        "NND_13",
+        "NND_14",
+        "NND_15",
+        "NND_16"
       ]
     },
     "connection_grid_size": 50.0,
@@ -748,7 +784,7 @@
         "uuid": "3dc633a2-e440-4ce6-bdff-6db6cd63c61f"
       }
     ],
-    "used_designators": "A_REG_TXRX_9_17,A_REG_TXRX_1_8-9,U1-2,A_1-32,A_REG_9_17-18,A_REG_BUS_9_17-18,A_REG_BUS_1_9,A_REG_1_8-9,D1-8,#PWR3-4,#PWR6-8,#PWR11,#PWR13-36",
+    "used_designators": "FULL_ADDER_TXRX_9_16,U1-2,FULL_ADDER_TXRX_1_8,NAND_13_16,FULL_ADDER_9_12-13,FULL_ADDER_13_16-17,#PWR4,#PWR7-8,#PWR11,#PWR13-16,#PWR37-50,FULL_ADDER_5_8-9,FULL_ADDER_1_4-5,NAND_5_8,NAND_9_12,1,NAND_1_4-8",
     "variants": []
   },
   "sheets": [
