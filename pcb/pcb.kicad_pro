@@ -53,7 +53,7 @@
           "border_display_style": 2,
           "border_hatch_pitch": 0.5,
           "corner_radius": 0.0,
-          "corner_smoothing": 0,
+          "corner_smoothing": 1,
           "fill_mode": 0,
           "hatch_gap": 1.5,
           "hatch_orientation": 0.0,
@@ -69,7 +69,13 @@
           "thermal_relief_spoke_width": 0.5
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -203,7 +209,9 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -230,7 +238,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -506,7 +519,7 @@
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.2,
+        "track_width": 0.3,
         "tuning_profile": "",
         "via_diameter": 0.6,
         "via_drill": 0.3,
@@ -608,6 +621,46 @@
       "sort_field": "Reference"
     },
     "bus_aliases": {
+      "A_1_8": [
+        "A_1",
+        "A_2",
+        "A_3",
+        "A_4",
+        "A_5",
+        "A_6",
+        "A_7",
+        "A_8"
+      ],
+      "A_9_16": [
+        "A_9",
+        "A_10",
+        "A_11",
+        "A_12",
+        "A_13",
+        "A_14",
+        "A_15",
+        "A_16"
+      ],
+      "B_1_8": [
+        "B_1",
+        "B_2",
+        "B_3",
+        "B_4",
+        "B_5",
+        "B_6",
+        "B_7",
+        "B_8"
+      ],
+      "B_9_16": [
+        "B_9",
+        "B_10",
+        "B_11",
+        "B_12",
+        "B_13",
+        "B_14",
+        "B_15",
+        "B_16"
+      ],
       "DATA_BUS_1_16": [
         "DB_1",
         "DB_2",
@@ -695,7 +748,7 @@
         "uuid": "3dc633a2-e440-4ce6-bdff-6db6cd63c61f"
       }
     ],
-    "used_designators": "A_REG_TXRX_1_8,U1-2,A_1-16,A_REG_9_17-18,A_REG_BUS_9_17-18,A_REG_BUS_1_9,A_REG_1_8-9,D1-8,#PWR3-4,#PWR6-8,#PWR11,#PWR13-32",
+    "used_designators": "A_REG_TXRX_9_17,A_REG_TXRX_1_8-9,U1-2,A_1-32,A_REG_9_17-18,A_REG_BUS_9_17-18,A_REG_BUS_1_9,A_REG_1_8-9,D1-8,#PWR3-4,#PWR6-8,#PWR11,#PWR13-36",
     "variants": []
   },
   "sheets": [
